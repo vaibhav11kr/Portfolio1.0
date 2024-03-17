@@ -1,7 +1,6 @@
 import React from "react";
 import "./About.css";
 import AboutImg from "../../assets/about.jpg";
-import Resume from "../../assets/Vaibhav-Resume.pdf";
 import Info from "./Info";
 
 const About = () => {
@@ -26,7 +25,7 @@ const About = () => {
             with agile methodologies and developing pages that are pixel
             perfect.
           </p>
-          <a download="" href={Resume} className="button button--flex">
+          <a download="" href="https://bit.ly/vaibhavkumarCV" className="button button--flex">
             Resume
             <svg
               class="button__icon"

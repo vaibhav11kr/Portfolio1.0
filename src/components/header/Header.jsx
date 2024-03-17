@@ -1,67 +1,88 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from "react";
 import "./Header.css";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/sig.png";
+import { Link, useLocation } from "react-router-dom";
+
 const Header = () => {
-    window.addEventListener("scroll", function(){
-        const header = document.querySelector(".header");
-        if( this.scrollY >= 80) header.classList.add("scroll-header");
-        else header.classList.remove("scroll-header");
-    });
-    const[Toggle, showMenu] = useState(false); 
-    const [activeNav, setActiveNav] = useState("#home");
+  const [toggle, setToggle] = useState(false);
+  const [activeNav, setActiveNav] = useState("#home");
+  const [show, setShow] = useState("top");
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  const controlNavbar = () => {
+    const scrollY = window.scrollY;
+    if (scrollY > 200) {
+      setShow(scrollY > lastScrollY ? "hide" : "show");
+    } else {
+      setShow("top");
+    }
+    setLastScrollY(scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavbar);
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
 
   return (
-    <header className="header">
-        <nav className="nav container">
-            <a href="index.html" className="nav_logo"><img src={Logo} alt="" /></a>
+    <header className={`header ${show}`}>
+      <nav className="nav container">
+        <Link to="/" className="nav_logo">
+          <img src={Logo} alt="vaibhav_kumar" className="logo" />
+        </Link>
 
-            <div className={Toggle ? "nav_menu show-menu" : "nav_menu"}>
-                <ul className="nav_list grid">
-                    <li className="nav_item">
-                        <a href="#home" onClick={()=>setActiveNav('#home')}
-                        className= {activeNav === '#home' ? "nav_link active-link" : "nav_link"}>
-                            <i className="uil uil-estate nav_icon"></i>Home
-                        </a>
-                    </li>
+        <div className={`nav_menu ${toggle ? "show-menu" : ""}`}>
+          <ul className="nav_list grid">
+          <NavItem to="#home" icon="estate" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Home</NavItem>
+            <NavItem to="#about" icon="user" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>About</NavItem>
+            <NavItem to="#skills" icon="arrow" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Skills</NavItem>
+            <NavItem to="#projects" icon="code-branch" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Projects</NavItem>
+            <NavItem to="#contact" icon="bag" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Experience</NavItem>
+            <NavItem to="#contact" icon="bookmark" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Education</NavItem>
+            <NavItem to="#contact" icon="message" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Contact</NavItem>
+            <li className="nav_item" onClick={() => setToggle(!toggle)}>
+              <a
+                href="https://bit.ly/vaibhavkumarCV"
+                className="nav_link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i className="uil uil-paperclip nav_icon"></i>
+                Resume
+              </a>
+            </li>
+          </ul>
+          <i className="uil uil-times nav_close" onClick={() => setToggle(!toggle)}></i>
 
-                    <li className="nav_item">
-                        <a href="#about" onClick={()=>setActiveNav('#about')}
-                        className= {activeNav === '#about' ? "nav_link active-link" : "nav_link"}>
-                            <i className="uil uil-user nav_icon"></i>About
-                        </a>
-                    </li>
+        </div>
 
-                    <li className="nav_item">
-                        <a href="#skills" onClick={()=>setActiveNav('#skills')}
-                        className= {activeNav === '#skills' ? "nav_link active-link" : "nav_link"}>
-                            <i className="uil uil-file nav_icon"></i>Skills
-                        </a>
-                    </li>
-
-                    <li className="nav_item">
-                        <a href="#projects" onClick={()=>setActiveNav('#projects')}
-                        className= {activeNav === '#projects' ? "nav_link active-link" : "nav_link"}>
-                            <i className="uil uil-scenery nav_icon"></i>Projects
-                        </a>
-                    </li>
-
-                    <li className="nav_item">
-                        <a href="#contact" onClick={()=>setActiveNav('#contact')}
-                        className= {activeNav === '#contact' ? "nav_link active-link" : "nav_link"}>
-                            <i className="uil uil-message nav_icon"></i>Contact
-                        </a>
-                    </li>
-                </ul>
-
-                <i className="uil uil-times nav_close" onClick={() => showMenu(!Toggle)}></i>
-            </div>
-            
-            <div className="nav_toggle" >
-                <i className="uil uil-apps " onClick={() => showMenu(!Toggle)}></i>
-            </div>
-        </nav>
+        <div className="nav_toggle">
+          <i className="uil uil-apps " onClick={() => setToggle(!toggle)}></i>
+        </div>
+      </nav>
     </header>
-  )
-}
+  );
+};
+
+const NavItem = ({ to, icon, children, setActiveNav, activeNav, closeMenu }) => (
+  <li className="nav_item" onClick={() => { setActiveNav(to); closeMenu(); }}>
+    <a
+      href={to} // Use href instead of to
+      className={`nav_link ${activeNav === to ? "active-link" : ""}`}
+    >
+      <i className={`uil uil-${icon} nav_icon`}></i>
+      {children}
+    </a>
+  </li>
+);
+
+
 
 export default Header;

@@ -20,6 +20,9 @@
 .nav_toggle {
     width: 200px;
 }
+.logo{
+  height: 35px;
+}
 
 .nav_list {
     display: flex;
@@ -36,7 +39,7 @@
     transition: .3s;
 }
 
-.nav_icon,
+
 .nav_close,
 .nav_toggle {
     display: none;
