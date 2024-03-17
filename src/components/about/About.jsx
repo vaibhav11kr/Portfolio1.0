@@ -25,7 +25,7 @@ const About = () => {
             with agile methodologies and developing pages that are pixel
             perfect.
           </p>
-          <a download="" href="https://bit.ly/vaibhavkumarCV" className="button button--flex">
+          <a href="https://bit.ly/vaibhavkumarCV" className="button button--flex" target="_blank">
             Resume
             <svg
               class="button__icon"
