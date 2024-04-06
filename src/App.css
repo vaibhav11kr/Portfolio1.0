@@ -86,8 +86,8 @@ textarea {
 }
 
 body{
-  background-image: linear-gradient(#F4F2F3,#E8E8EA);
-  /* background-color: #EDEDED; */
+  /* background-image: linear-gradient(#F4F2F3,#E8E8EA); */
+  background-color: #EDEDED;
   color: var(--text-color);
 }
   

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
-import Logo from "../../assets/sig.png";
+import Logo from "../../assets/logo.png";
 import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
@@ -44,8 +44,8 @@ const Header = () => {
             <NavItem to="#about" icon="user" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>About</NavItem>
             <NavItem to="#skills" icon="arrow" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Skills</NavItem>
             <NavItem to="#projects" icon="code-branch" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Projects</NavItem>
-            <NavItem to="#contact" icon="bag" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Experience</NavItem>
-            <NavItem to="#contact" icon="bookmark" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Education</NavItem>
+            <NavItem to="#experience" icon="bag" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Experience</NavItem>
+            <NavItem to="#education" icon="bookmark" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Education</NavItem>
             <NavItem to="#contact" icon="message" setActiveNav={setActiveNav} activeNav={activeNav} closeMenu={() => setToggle(false)}>Contact</NavItem>
             <li className="nav_item" onClick={() => setToggle(!toggle)}>
               <a

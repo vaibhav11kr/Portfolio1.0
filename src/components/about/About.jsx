@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 import "./About.css";
 import AboutImg from "../../assets/about.jpg";
 import Info from "./Info";
 
 const About = () => {
+
   const date = new Date(2022, 0, 20);
   const currdate = new Date();
   const year1 = date.getFullYear();
@@ -11,24 +13,63 @@ const About = () => {
   const year2 = currdate.getFullYear();
   const month2 = currdate.getMonth();
   const exp = (year2 - year1) * 12 + (month2 - month1) - 1;
+
+  const [isVisible, setIsVisible] = useState(false);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const aboutSection = document.getElementById('about');
+      if (aboutSection) {
+        const { top } = aboutSection.getBoundingClientRect();
+        setIsVisible(top < window.innerHeight * 0.5);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      controls.start({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 1 }
+      });
+    }
+  }, [isVisible, controls]);
+
   return (
     <section className="about section" id="about">
       <h2 className="section_title">About Me</h2>
       <span className="section_subtitle">My Introduction</span>
       <div className="about_container container grid">
-        <img src={AboutImg} alt="Vaibhav.jpg" className="about_img" />
-        <div className="about_data">
+      <motion.img
+  src={AboutImg}
+  alt="Vaibhav.jpg"
+  className="about_img"
+  initial={{ opacity: 0, scale: 0.5 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 1, delay: 0.5 }}
+  whileHover={{ scale: 1.05 }} // Scale Animation
+  whileTap={{ scale: 0.95 }} // Scale Animation for touch devices
+  style={{ filter: 'drop-shadow(0px 5px 5px rgba(0, 0, 0, 0.2))' }} // Shadow Animation
+/>
+
+        <motion.div
+          className="about_data"
+          initial={{ opacity: 0, y: 20 }}
+          animate={controls}
+        >
           <Info />
           <p className="about_description">
-            Frontend developer, I create user experiences with some code and
-            lots of coffee and music, I have {exp} months of experience working
-            with agile methodologies and developing pages that are pixel
-            perfect.
+            Frontend developer, I create user experiences with some code and lots of coffee and music, I have {exp} months of experience working with agile methodologies and developing pages that are pixel perfect.
           </p>
-          <a href="https://bit.ly/vaibhavkumarCV" className="button button--flex" target="_blank">
+          <a href="https://bit.ly/vaibhavkumarCV" className="button button--flex" target="_blank" rel="noopener noreferrer">
             Resume
             <svg
-              class="button__icon"
+              className="button__icon"
               xmlns="http://www.w3.org/2000/svg"
               width="25"
               height="20"
@@ -53,7 +94,7 @@ const About = () => {
               ></path>
             </svg>
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

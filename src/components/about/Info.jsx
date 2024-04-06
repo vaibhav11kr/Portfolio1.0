@@ -1,32 +1,49 @@
-import React from 'react'
+import React from 'react';
+import { motion } from 'framer-motion';
 
-const Info = () => {
-  const date = new Date(2022,0, 20);
-  const currdate = new Date();
-  const year1 = date.getFullYear();
-  const month1 = date.getMonth();
-  const year2 = currdate.getFullYear();
-  const month2 = currdate.getMonth();
-  const exp = (year2 - year1) * 12 + (month2 - month1) - 1;
+const Info = ({ exp }) => {
   return (
     <div className="about_info grid">
-        <div className="about_box">
+      <motion.div
+        className="about_box"
+        whileHover={{ scale: 1.05 }} // Scale Animation
+        whileTap={{ scale: 0.95 }} // Scale Animation for touch devices
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+      >
         <i className="bx bx-award about_icon"></i>
-            <h3 className="about_title">Experience</h3>
-            <span className="about_subtitle">{exp} Months Working</span>
-        </div>
-        <div className="about_box">
+        <h3 className="about_title">Experience</h3>
+        <span className="about_subtitle">{exp} Months Working</span>
+      </motion.div>
+
+      <motion.div
+        className="about_box"
+        whileHover={{ scale: 1.05 }} // Scale Animation
+        whileTap={{ scale: 0.95 }} // Scale Animation for touch devices
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+      >
         <i className="bx bx-briefcase-alt about_icon"></i>
-            <h3 className="about_title">Completed</h3>
-            <span className="about_subtitle">5+ Projects</span>
-        </div>
-        <div className="about_box">
-        <i class='bx bxs-book-open about_icon'></i>
-            <h3 className="about_title">Learning</h3>
-            <span className="about_subtitle">24/7</span>
-        </div>
+        <h3 className="about_title">Completed</h3>
+        <span className="about_subtitle">5+ Projects</span>
+      </motion.div>
+
+      <motion.div
+        className="about_box"
+        whileHover={{ scale: 1.05 }} // Scale Animation
+        whileTap={{ scale: 0.95 }} // Scale Animation for touch devices
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+      >
+        <i className='bx bxs-book-open about_icon'></i>
+        <h3 className="about_title">Learning</h3>
+        <span className="about_subtitle">24/7</span>
+      </motion.div>
     </div>
-  )
+  );
 }
 
-export default Info
+export default Info;
